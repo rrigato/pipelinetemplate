@@ -19,7 +19,7 @@ phases:
     commands:
       - echo Entered the install phase...
       - BUILD_ENVIRONMENT=dev-{{cookiecutter.project_name}}
-      - DEV_TEST_STACK="${BUILD_ENVIRONMENT}-backend"      
+      - DEV_TEST_STACK="${BUILD_ENVIRONMENT}-stackname"      
       - pip install -r tests/requirements_dev.txt
   build:
     commands:

@@ -1,0 +1,59 @@
+############################
+#{{cookiecutter.project_description}}
+#
+#1) Runs the cloudformation template to create dev environment
+#
+#
+############################
+version: 0.2
+
+phases:
+  ###########################################
+  #Uses a python runtime
+  #Note that you do not need the \ to escape
+  #aws cli commands
+  ###########################################
+  install:
+    runtime-versions:
+       python: 3.7
+    commands:
+      - echo Entered the install phase...
+      - BUILD_ENVIRONMENT=dev-{{cookiecutter.project_name}}
+      - DEV_TEST_STACK="${BUILD_ENVIRONMENT}-backend"      
+      - pip install -r tests/requirements_dev.txt
+  build:
+    commands:
+      - echo Defined build variables
+      - echo $BUILD_ENVIRONMENT
+      - echo $DEV_TEST_STACK
+
+      ############################################
+      #Uncomment to create dev environment stack
+      # - echo "Creating $DEV_TEST_STACK"
+      # - aws cloudformation create-stack --stack-name $DEV_TEST_STACK
+      #     --template-body file://templates/{{cookiecutter.project_name}}.yml
+      #     --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM
+
+      # #Waits until the stack has been successfully created
+      # - aws cloudformation wait stack-create-complete
+      #   --stack-name $DEV_TEST_STACK
+      #############################################
+
+
+  post_build:
+    commands:
+      - echo cleaning up resources
+
+      ##############################################
+      #uncomment to remove dev environment stack
+      # - aws cloudformation delete-stack --stack-name $DEV_TEST_STACK
+      ##############################################
+
+artifacts:
+  files:
+    ##########################
+    #Adds artifact that can be referenced in later stages from 
+    #${CODEBUILD_SRC_DIR_BuildDev{{cookiecutter.project_name}}}
+    ##########################
+    - 'logs/*'
+  name: 'BuildDev{{cookiecutter.project_name}}'

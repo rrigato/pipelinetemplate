@@ -6,9 +6,6 @@
 
 ## table_of_contents
 
-- [dev_tools](#dev_tools)
-    * [cfn_lint](#cfn_lint)
-    * [git_secrets](#git_secrets)
 
 - [{{cookiecutter.project_name}}](#cookiecutterproject_name)
   - [table_of_contents](#table_of_contents)
@@ -104,7 +101,7 @@ Below is a high level description of the CI/CD pipeline:
 ![Dev Code Build Failure](devops/images/pipeline_demo_3.png )
 
 
-4) Once all unit tests are passed the qa environment cloudformation stacks are deleted and the changes are migrated to production. Code Build tests are run on prod and once successfully passed the changes are merged into the master branch
+1) Once all tests are passed the dev environment cloudformation stacks are deleted and the changes are migrated to production. Code Build tests are run on prod and once successfully passed the changes are merged into the master branch
 
 ![Prod Build](devops/images/pipeline_demo_4.png )
 

@@ -15,6 +15,7 @@
     - [dev_tools](#dev_tools)
       - [cfn_lint](#cfn_lint)
       - [git_secrets](#git_secrets)
+      - [ci_cd_pipeline](#ci_cd_pipeline)
     - [project_directory_overview](#project_directory_overview)
       - [builds](#builds)
       - [devops](#devops)
@@ -89,6 +90,24 @@ Configuring git secrets as a web hook will ensure that git secrets runs on every
 ```
 git secrets --scan -r .
 ```
+
+#### ci_cd_pipeline
+Below is a high level description of the CI/CD pipeline:
+
+1) When new code is pushed to the dev branch this triggers a code pipeline revision
+
+2) Cloudformation dev stack will be spun up to enable a clean environment that replicates production and to run test scripts
+![Building Dev Environment](devops/images/pipeline_demo_2.png )
+
+3) Any build errors that occur testing on this qa environment will halt the pipeline before any changes are made to production
+
+![Dev Code Build Failure](devops/images/pipeline_demo_3.png )
+
+
+4) Once all unit tests are passed the qa environment cloudformation stacks are deleted and the changes are migrated to production. Code Build tests are run on prod and once successfully passed the changes are merged into the master branch
+
+![Prod Build](devops/images/pipeline_demo_4.png )
+
 
 
 ### project_directory_overview

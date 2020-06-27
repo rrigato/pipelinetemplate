@@ -27,17 +27,20 @@ phases:
       - echo $BUILD_ENVIRONMENT
       - echo $DEV_TEST_STACK
 
-      ############################################
-      #Uncomment to create dev environment stack
-      # - echo "Creating $DEV_TEST_STACK"
-      # - aws cloudformation create-stack --stack-name $DEV_TEST_STACK
-      #     --template-body file://templates/{{cookiecutter.project_name}}.yml
-      #     --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM
 
-      # #Waits until the stack has been successfully created
-      # - aws cloudformation wait stack-create-complete
-      #   --stack-name $DEV_TEST_STACK
-      #############################################
+      
+      - echo "Creating $DEV_TEST_STACK"
+      - aws cloudformation create-stack --stack-name $DEV_TEST_STACK
+          --template-body file://templates/bucket_template.yml
+          --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM
+
+      #Waits until the stack has been successfully created
+      - aws cloudformation wait stack-create-complete
+        --stack-name $DEV_TEST_STACK
+
+
+      #run tests after stack has built
+      - python -m unittest tests.test_dev_aws_resources
 
 
   post_build:

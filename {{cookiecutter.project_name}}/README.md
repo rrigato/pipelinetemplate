@@ -7,7 +7,7 @@
 ## table_of_contents
 
 
-- [{{cookiecutter.project_name}}](#cookiecutterproject_name)
+- [{{cookiecutter.project_name}}](#{{cookiecutter.project_name}})
   - [table_of_contents](#table_of_contents)
     - [dev_tools](#dev_tools)
       - [cfn_lint](#cfn_lint)

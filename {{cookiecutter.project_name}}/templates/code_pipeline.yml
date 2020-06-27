@@ -202,9 +202,8 @@ Resources:
   #stage 2) Build = Runs the CodeBuild Project associated 
   #with the builds/buildspec_dev.yml file
   #
-  #stage 3) Deploy 
-  #stage 4) Build = runs any configuration necessary
-  #to deploy built html files to prod
+  #stage 3) Deploy = creates/updates templates/bucket_template.yml
+  #stage 4) Build = CodeBuild project for builds/buildspec_prod.yml
   ###########################################
   CodePipelineStack:
     Type: AWS::CodePipeline::Pipeline
@@ -255,8 +254,6 @@ Resources:
 
         ###############################
         #stage 2
-        #Dev CodeBuild jobs in two parallel actions:
-        #
         #1st action - CodeBuild Project for
         #builds/buildspec_dev.yml
         #
@@ -335,6 +332,42 @@ Resources:
             RunOrder: 1
 
 
+
+        ###############################
+        #stage 4 
+        #1st action - CodeBuild Project for
+        #builds/buildspec_prod.yml        
+        ###############################
+        - Name: BuildProdEnvironment
+          Actions:
+          - Name: Test
+              ######################################
+              #List of valid action type providers
+              #by action can be found here:
+              #https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers
+              ######################################
+            ActionTypeId:
+                Category: Test
+                Owner: AWS
+                Version: '1'
+                Provider: CodeBuild
+            InputArtifacts:
+              - Name: !GetAtt GitRepo.Name
+              - Name: BuildDev
+            OutputArtifacts:
+              - Name: BuildProd
+            #########################################
+            #Configuration Details by provider can be found here:
+            #https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#structure-configuration-examples
+            #
+            #########################################
+            Configuration:
+                PrimarySource: !GetAtt GitRepo.Name 
+                #prod CodeBuild Project previously defined
+                ProjectName:
+                  !Join ['', ['prod-build-', !Ref ProjectName]]
+
+            RunOrder: 1
 
 
 ####################################

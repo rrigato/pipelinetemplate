@@ -12,7 +12,7 @@ aws cloudformation create-stack --stack-name {{cookiecutter.project_name}}-pipel
 git remote set-url origin ssh://<Host>/v1/repos/ratingsapi
 
 #initial project commits to trigger pipeline
-git add README.md
+git add -f tests/requirements_dev.txt tests/requirements_prod.txt
 
 git commit -m "Initial Project commit"
 

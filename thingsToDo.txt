@@ -1,0 +1,3 @@
+1) Modify/add templates/code_pipeline.yml
+
+2) Test cookiecutter with creating a stub for the ratings api

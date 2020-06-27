@@ -20,7 +20,7 @@ pipeline yaml definition and build definition whenever I started a new project.I
 ```
 pip install cookiecutter
 
-cookiecutter 
+cookiecutter https://github.com/rrigato/pipelinetemplate.git
 ```
 
 ### cookiecutter_parameters

@@ -134,7 +134,9 @@ ci.sh = miscellaneous awscli commands to configure environment
 
 #### tests
 
-- requrements_dev.txt = python requirements installed in buildspec_dev.yml
+- requirements_dev.txt = python requirements installed in buildspec_dev.yml
+
+- requirements_prod.txt = python requirements installed in buildspec_prod.yml
 
 - test_dev_aws_resources.py = dev environment tests run in the CodeBuild project for builds/buildspec_dev.yml
 

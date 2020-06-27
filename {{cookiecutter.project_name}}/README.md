@@ -1,4 +1,4 @@
-[![made-with-pipelinetemplate](https://img.shields.io/badge/Made%20with-pipelinetemplate-blue.svg)](https://github.com/rrigato/pipelinetemplate.git) ![Build Status](https://img.shields.io/badge/Build%20Status-unknown-orange) ![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg) 
+[![made-with-pipelinetemplate](https://img.shields.io/badge/Made%20with-pipelinetemplate-blue.svg)](https://github.com/rrigato/pipelinetemplate.git) ![Build Status](https://img.shields.io/badge/Build%20Status-unknown-lightgray) ![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg) 
 
 # {{cookiecutter.project_name}}
 {{cookiecutter.project_description}}

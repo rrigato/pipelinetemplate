@@ -8,6 +8,9 @@ aws cloudformation create-stack --stack-name {{cookiecutter.project_name}}-pipel
  --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
 
 
+#replace <Host> with your Host alias found in ~/.ssh/config
+git remote set-url origin ssh://<Host>/v1/repos/ratingsapi
+
 
 #Create a changeset
 aws cloudformation create-change-set --stack-name {{cookiecutter.project_name}}-pipeline \

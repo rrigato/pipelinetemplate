@@ -24,7 +24,7 @@ git checkout -b dev
 
 git add * 
 
-git commit -m "initial pipeline commit"
+git commit -m "Initial code pipeline commit"
 
 git push origin -u dev
 

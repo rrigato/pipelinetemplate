@@ -9,7 +9,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-       python: 3.7
+       python: 3.8
     commands:
       - echo Entered the install phase...
 
@@ -24,6 +24,9 @@ phases:
       - echo Defined build variables
       - echo $BUILD_ENVIRONMENT
       - echo $REPO_NAME
+
+      #runs prod tests
+      - python -m unittest tests.test_prod_aws_resources
 
       #merges dev branch into master now that all tests have
       #been passed and artifacts created

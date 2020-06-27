@@ -47,10 +47,8 @@ phases:
     commands:
       - echo cleaning up resources
 
-      ##############################################
-      #uncomment to remove dev environment stack
-      # - aws cloudformation delete-stack --stack-name $DEV_TEST_STACK
-      ##############################################
+      - aws cloudformation delete-stack --stack-name $DEV_TEST_STACK
+
 
 artifacts:
   files:

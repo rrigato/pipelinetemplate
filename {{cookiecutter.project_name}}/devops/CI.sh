@@ -13,6 +13,8 @@ git init
 #replace <Host> with your Host alias found in ~/.ssh/config
 git remote add origin ssh://<Host>/v1/repos/{{cookiecutter.project_name}}
 
+git fetch origin
+
 #initial project commits to trigger pipeline
 git add -f tests/requirements_dev.txt tests/requirements_prod.txt
 

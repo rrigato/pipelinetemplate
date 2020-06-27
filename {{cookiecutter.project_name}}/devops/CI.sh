@@ -11,6 +11,21 @@ aws cloudformation create-stack --stack-name {{cookiecutter.project_name}}-pipel
 #replace <Host> with your Host alias found in ~/.ssh/config
 git remote set-url origin ssh://<Host>/v1/repos/ratingsapi
 
+#initial project commits to trigger pipeline
+git add README.md
+
+git commit -m "Initial Project commit"
+
+git push origin master
+
+git checkout -b dev
+
+git add * 
+
+git commit -m "initial pipeline commit"
+
+git push origin -u dev
+
 
 #Create a changeset
 aws cloudformation create-change-set --stack-name {{cookiecutter.project_name}}-pipeline \

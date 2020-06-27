@@ -95,50 +95,6 @@ Resources:
 
   #################################
   #Code Build Project that runs python
-  #unit/integration tests for backend
-  #
-  ###################################
-  CodeBuildPythonBackendTests:
-    #Need the DevArtifactsBucket Created first before This
-    #CodeBuild Project can start
-    DependsOn: DevArtifactsBucket
-    Type: AWS::CodeBuild::Project
-    Properties:
-      #Output location for the CodeBuild Project
-      Artifacts:
-        Type: S3
-        Location:
-            !Join ['', ['codebuild-dev-', !Ref ProjectName]]
-        Packaging: NONE
-      #Allows for git badge at top of git repo
-      BadgeEnabled: true
-
-      #Where logs are written to from code build
-      LogsConfig:
-          S3Logs:
-              Status: ENABLED
-              Location:
-                !Join ['', ['codebuild-dev-', !Ref ProjectName,
-                '/buildlogs/dev/backend']]
-      #Standard Linux Image environment
-      Environment:
-        ComputeType: BUILD_GENERAL1_SMALL
-        Type: LINUX_CONTAINER
-        Image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
-      Name:
-          !Join ['', ['dev-tests-backend-', !Ref ProjectName]]
-      ServiceRole: !Ref CodeBuildRole
-      #CodeCommit Git repo used for CodeBuild
-      Source:
-        #Buildspec file to use for the dev build
-        BuildSpec: builds/buildspec_dev.yml
-        Location: !GetAtt GitRepo.CloneUrlHttp
-        Type: CODECOMMIT
-      TimeoutInMinutes: 5
-
-
-  #################################
-  #Code Build Project that runs python
   #unit/integration tests
   #
   ###################################
@@ -243,12 +199,10 @@ Resources:
   #
   #Stages for this environment:
   #Stage 1) Source = Get source code repository
-  #stage 2) Build = Runs these CodeBuild projects in parallel:
-  #builds/buildspec_dev_ratings.yml
-  #builds/buildspec_dev_backend.yml
+  #stage 2) Build = Runs the CodeBuild Project associated 
+  #with the builds/buildspec_dev.yml file
   #
-  #stage 3) Deploy create/updates the
-  #templates/prod_resource_import.yml
+  #stage 3) Deploy 
   #stage 4) Build = runs any configuration necessary
   #to deploy built html files to prod
   ###########################################
@@ -324,12 +278,12 @@ Resources:
             InputArtifacts:
               - Name: !GetAtt GitRepo.Name
             OutputArtifacts:
-              - Name: BuildDevBackend
+              - Name: BuildDev
 
             #Name of CodeBuild defined previously
             Configuration:
                 ProjectName:
-                    !Join ['', ['dev-tests-backend-', !Ref ProjectName]]
+                    !Join ['', ['dev-tests-', !Ref ProjectName]]
             #Same runorder results in parallel CodeBuild
             #projects
             RunOrder: 1
